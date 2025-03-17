@@ -3,12 +3,10 @@ import { useState, useRef, Suspense } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Points, Preload } from "@react-three/drei";
 import * as random from "maath/random/dist/maath-random.esm";
-import { Group, BufferAttribute } from "three"; // Import BufferAttribute instead of PointsMaterial
+import { Group } from "three"; // Remove unused BufferAttribute import
 
-// Define the props type (if needed)
+// Define the props type
 interface StarsProps {
-  // Define specific props if needed
-  // Example:
   radius?: number;
   color?: string;
 }
@@ -28,10 +26,10 @@ const Stars: React.FC<StarsProps> = (props) => {
 
   return (
     <group ref={ref} rotation={[0, 0, Math.PI / 4]}>
-      <Points positions={sphere} frustumCulled {...props}>
+      <Points positions={sphere} stride={3} frustumCulled {...props}>
         <pointsMaterial
           transparent
-          color={"#fffff"}
+          color={"#f272c8"}
           size={0.002}
           sizeAttenuation={true}
           depthWrite={false}

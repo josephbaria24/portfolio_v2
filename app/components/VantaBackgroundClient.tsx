@@ -1,45 +1,37 @@
-"use client"; // ✅ Ensures this runs only in the browser
+"use client";
 
 import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
+import GLOBE from "vanta/dist/vanta.globe.min";
 
 const VantaBackgroundClient = () => {
-  const vantaRef = useRef<HTMLDivElement | null>(null);
-  const [vantaEffect, setVantaEffect] = useState<any>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [vantaEffect, setVantaEffect] = useState<{ destroy: () => void } | null>(null); // Properly typed
 
   useEffect(() => {
-    if (typeof window === "undefined") return; // ✅ Prevent execution on the server
-
-    import("p5").then((p5) => {
-      import("vanta/dist/vanta.globe.min").then((GLOBE) => {
-        if (!vantaEffect && vantaRef.current) {
-          setVantaEffect(
-            GLOBE.default({
-              el: vantaRef.current,
-              mouseControls: true,
-              touchControls: true,
-              gyroControls: false,
-              minHeight: 200.0,
-              minWidth: 200.0,
-              scale: 1.0,
-              scaleMobile: 1.0,
-              color: 0xffffff,
-              size: 0.7,
-              backgroundColor: 0x000000,
-              THREE: THREE, // Pass Three.js manually
-              p5: p5.default, // Pass p5 manually
-            })
-          );
-        }
+    if (typeof window !== "undefined" && containerRef.current) {
+      const effect = GLOBE({
+        el: containerRef.current,
+        THREE,
+        mouseControls: true,
+        touchControls: true,
+        gyroControls: false,
+        minHeight: 800.0,
+        minWidth: 800.0,
+        scale: 1.0,
+        scaleMobile: 1.0,
+        backgroundColor: 0x0,
+        color: 0xffffff,
       });
-    });
+      setVantaEffect(effect);
+    }
 
     return () => {
       if (vantaEffect) vantaEffect.destroy();
     };
   }, [vantaEffect]);
 
-  return <div ref={vantaRef} className="absolute inset-0 z-0"></div>;
+  return <div ref={containerRef} className="w-full h-full absolute inset-0" />;
 };
 
 export default VantaBackgroundClient;

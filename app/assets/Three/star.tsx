@@ -1,9 +1,9 @@
 "use client";
 import { useState, useRef, Suspense } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Points, PointMaterial, Preload } from "@react-three/drei";
+import { Points, Preload } from "@react-three/drei";
 import * as random from "maath/random/dist/maath-random.esm";
-import { Group } from "three";
+import { Group, PointsMaterial } from "three"; // Import PointsMaterial from three
 
 // Define the props type (if needed)
 interface StarsProps {
@@ -11,9 +11,9 @@ interface StarsProps {
 }
 
 const Stars: React.FC<StarsProps> = (props) => {
-    const ref = useRef<Group | null>(null);
+  const ref = useRef<Group | null>(null);
   const [sphere] = useState(() =>
-    random.inSphere(new Float32Array(5000 * 3), { radius: 1.2 }) 
+    random.inSphere(new Float32Array(5000 * 3), { radius: 1.2 })
   );
 
   useFrame((state, delta) => {
@@ -26,9 +26,10 @@ const Stars: React.FC<StarsProps> = (props) => {
   return (
     <group ref={ref} rotation={[0, 0, Math.PI / 4]}>
       <Points positions={sphere} stride={3} frustumCulled {...props}>
-        <PointMaterial
+        {/* Use PointsMaterial instead */}
+        <pointsMaterial
           transparent
-          color="#f272c8"
+          color={"#f272c8"}
           size={0.002}
           sizeAttenuation={true}
           depthWrite={false}

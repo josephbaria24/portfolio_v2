@@ -6,6 +6,8 @@ import dynamic from 'next/dynamic';
 import { useState, useEffect } from 'react';
 import Stars from '../assets/Three/star';
 
+
+
 // Dynamically import the components that use browser APIs
 const DynamicChaos = dynamic(
   () => import("../assets/Three/Chaos"),

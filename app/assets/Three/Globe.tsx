@@ -5,10 +5,10 @@ import * as THREE from "three";
 import GLOBE from "vanta/dist/vanta.globe.min";
 
 const GlobeBackground = () => {
-  const globeRef = useRef<HTMLDivElement>(null); // Correct type for useRef
+  const globeRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    let vantaEffect: { destroy: () => void }; // Properly type vantaEffect
+    let vantaEffect: { destroy: () => void }; // Properly typed
 
     if (typeof window !== "undefined" && globeRef.current) {
       vantaEffect = GLOBE({

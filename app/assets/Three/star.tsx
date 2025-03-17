@@ -7,7 +7,10 @@ import { Group, BufferAttribute } from "three"; // Import BufferAttribute instea
 
 // Define the props type (if needed)
 interface StarsProps {
-  [key: string]: any;
+  // Define specific props if needed
+  // Example:
+  radius?: number;
+  color?: string;
 }
 
 const Stars: React.FC<StarsProps> = (props) => {
@@ -25,10 +28,10 @@ const Stars: React.FC<StarsProps> = (props) => {
 
   return (
     <group ref={ref} rotation={[0, 0, Math.PI / 4]}>
-      <Points positions={new BufferAttribute(sphere, 3)} frustumCulled {...props}>
+      <Points positions={sphere} frustumCulled {...props}>
         <pointsMaterial
           transparent
-          color={"#f272c8"}
+          color={"#fffff"}
           size={0.002}
           sizeAttenuation={true}
           depthWrite={false}

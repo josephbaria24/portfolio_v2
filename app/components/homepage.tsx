@@ -120,7 +120,7 @@ export default function Home() {
             </div>
 
             {/* Card 3 - Add a New Project Here */}
-            <div className="bg-white/10 backdrop-blur-lg p-4 rounded-xl shadow-lg border border-white/15 flex flex-col items-center text-center transform transition duration-300 hover:scale-105 hover:shadow-xl">
+            {/* <div className="bg-white/10 backdrop-blur-lg p-4 rounded-xl shadow-lg border border-white/15 flex flex-col items-center text-center transform transition duration-300 hover:scale-105 hover:shadow-xl">
               <div className="flex justify-center">
                 <Image src="/project3.png" width={250} height={150} alt="Project 3" className="rounded-md" />
               </div>
@@ -137,7 +137,7 @@ export default function Home() {
               >
                 View Project →
               </a>
-            </div>
+            </div> */}
           </div>
         </main>
 

@@ -1,3 +1,4 @@
+@import url('https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css');
 @import "tailwindcss";
 
 :root {
@@ -15,7 +16,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: rgb(0, 0, 0);
+    --background: rgb(255, 255, 255);
     --foreground: #ffffff;
   }
 }

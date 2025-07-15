@@ -5,8 +5,52 @@ import Head from "next/head";
 import "../../app/globals.css";
 import { useState, useEffect } from "react";
 
+
+const projects = [
+  {
+    id: 1,
+    title: "RentConnect App",
+    description: "A comprehensive app for landlords and tenants, built with Flutter.",
+    link: "https://apkpure.com/rentconnect/com.example.rentcon",
+    images: ["/rcb.png", "/rcb.png", "/rcb.png"],
+  },
+  {
+    id: 2,
+    title: "E-portfolio",
+    description: "My first react mini portfolio for case study.",
+    link: "https://educare-seven.vercel.app/",
+    images: ["/educare.png","/edu1.png","/edu2.png","/edu3.png"],
+  },
+  {
+    id: 3,
+    title: "OVPEC System",
+    description: "Document inventory system for office of the vice president.",
+    link: "https://vpecsys.vercel.app/",
+    images: ["/vpec.png"],
+  },
+  {
+    id: 4,
+    title: "Villa Costa",
+    description: "Booking app for Villa Costa Hotel (startup business of my clients)",
+    link: "https://drive.google.com/drive/u/0/folders/1jFFai1X-YH5sPMZn8jz9dAZM6bJ92jkQ",
+    images: ["/VC-1.png", "/VC-2.png"],
+  },
+];
+
+
+
 export default function Home() {
-  const [isClient, setIsClient] = useState(false);
+  const [, setIsClient] = useState(false);
+
+  type ProjectType = {
+    id: number;
+    title: string;
+    description: string;
+    link: string;
+    images: string[];
+  };
+  
+  const [modalProject, setModalProject] = useState<ProjectType | null>(null);
 
   useEffect(() => {
     setIsClient(true);
@@ -22,6 +66,30 @@ export default function Home() {
       </Head>
 
       <div className="relative flex flex-col min-h-screen bg-white text-black">
+        {/* Header */}
+<header className="w-full flex items-center justify-between px-6 py-4 border-b border-gray-200">
+  <h1 className="text-xl font-bold text-black">Joseph</h1>
+  <button
+    className="text-black hover:text-gray-700 focus:outline-none"
+    aria-label="Menu"
+  >
+    <svg
+      className="w-6 h-6"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        d="M4 6h16M4 12h16M4 18h16"
+      ></path>
+    </svg>
+  </button>
+</header>
+
         {/* Hero Section */}
         <div className="relative flex flex-col min-h-screen">
           <main className="flex-grow flex flex-col items-center justify-center text-center">
@@ -110,7 +178,93 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Contact Section */}
+        
+
+        {/* Projects Section */}
+        
+        <div className="relative flex flex-col min-h-screen">
+          <main className="flex-grow flex flex-col items-center justify-center text-center">
+          <h2 className="text-3xl font-bold mb-4">What I&apos;ve Built</h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6 max-w-6xl">
+            {projects.map((project) => (
+              <div
+                key={project.id}
+                className="relative bg-white p-4 rounded-xl shadow-md border border-gray-300 flex flex-col transition hover:scale-105 cursor-pointer"
+                onClick={() => setModalProject(project)}
+              >
+                <Image
+                  src={project.images[0]}
+                  width={160}
+                  height={100}
+                  alt={project.title}
+                  className="rounded-md self-center"
+                />
+                <h3 className="text-md font-semibold mt-2 text-center">{project.title}</h3>
+                <p className="text-xs text-gray-700 text-center">{project.description}</p>
+                <a
+                  href={project.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-black hover:underline mt-2 text-center"
+                >
+                  View Project →
+                </a>
+              </div>
+            ))}
+          </div>
+
+
+
+
+        {modalProject && (
+          <div className="fixed inset-0 backdrop-blur-md bg-white/30 z-50 flex items-center justify-center transition-opacity duration-900">
+
+
+            <div className="bg-white max-w-2xl w-full p-6 rounded-xl relative shadow-xl">
+              {/* Close Button */}
+              <button
+                className="absolute top-4 right-4 text-gray-500 hover:text-black text-xl"
+                onClick={() => setModalProject(null)}
+              >
+                ×
+              </button>
+
+              <h3 className="text-xl font-bold mb-2">{modalProject.title}</h3>
+              <p className="text-sm text-gray-600 mb-4">{modalProject.description}</p>
+
+              {/* Image Gallery */}
+              <div className="flex overflow-x-auto gap-4 pb-2">
+                {modalProject.images.map((img, index) => (
+                  <Image
+                    key={index}
+                    src={img}
+                    alt={`${modalProject.title} image ${index + 1}`}
+                    width={250}
+                    height={180}
+                    className="rounded-lg border"
+                    loading="lazy"
+                  />
+                ))}
+              </div>
+
+              {/* Project link */}
+              <a
+                href={modalProject.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 underline mt-4 inline-block"
+              >
+                Visit Project →
+              </a>
+            </div>
+          </div>
+        )}
+
+          </main>
+
+
+          {/* Contact Section */}
         <section className="py-20 px-4 bg-white text-black text-center">
           <h2 className="text-3xl font-bold mb-4">Get in Touch</h2>
           <p className="text-gray-700 mb-6">
@@ -123,46 +277,6 @@ export default function Home() {
             Send Me a Message
           </a>
         </section>
-
-        {/* Projects Section */}
-        <div className="relative flex flex-col min-h-screen">
-          <main className="flex-grow flex flex-col items-center justify-center text-center">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6 max-w-5xl">
-              {/* Card 1 */}
-              <div className="bg-gray-100 p-4 rounded-xl shadow-md border border-gray-300 flex flex-col items-center text-center transition hover:scale-105">
-                <Image src="/rc.png" width={150} height={100} alt="Project 1" className="rounded-md" />
-                <h3 className="text-md font-semibold mt-2">RentConnect App</h3>
-                <p className="text-xs text-gray-700">
-                  A comprehensive app for landlords and tenants, built with Flutter.
-                </p>
-                <a
-                  href="https://apkpure.com/rentconnect/com.example.rentcon"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-black hover:underline mt-2 inline-block"
-                >
-                  View Project →
-                </a>
-              </div>
-
-              {/* Card 2 */}
-              <div className="bg-gray-100 p-4 rounded-xl shadow-md border border-gray-300 flex flex-col items-center text-center transition hover:scale-105">
-                <Image src="/educare.png" width={120} height={80} alt="Project 2" className="rounded-md" />
-                <h3 className="text-md font-semibold mt-2">Real-time Chat App</h3>
-                <p className="text-xs text-gray-700">
-                  My first react mini portfolio for case study.
-                </p>
-                <a
-                  href="https://educare-seven.vercel.app/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-black hover:underline mt-2 inline-block"
-                >
-                  View Project →
-                </a>
-              </div>
-            </div>
-          </main>
 
           {/* Footer */}
           <footer className="flex gap-6 flex-wrap items-center justify-center p-4 text-black border-t border-gray-200 mt-12">
